@@ -54,7 +54,7 @@
           method: "GET",
         };
 
-        fetch("http://localhost:8080/ducks")
+        /*fetch("http://localhost:8080/ducks")
         .then(response =>
         response.json())
         .then(ducks => {
@@ -63,28 +63,31 @@
           const jsonToString = JSON.stringify(ducks);
           console.log('jsonToString', jsonToString);
         })
-      }
+      }*/
 
-        /*let response = await fetch(host + "/ducks", request)
+        let response = await fetch(host + "/ducks", request)
         
         if (response.status === 200) {
-          let result = await response.json().getElementById;
-          ducks = result;
+          let result = await response.json();
+          return result;
           } else {
             throw new Error("Error");
           }
-        }*/
+        }
 
 
       async function search() {    
-        if(ducks.length == 0){
+      
+        
+        if (ducks.length == 0) {
           ducks = await getAll();
         }
+        
 
         let duckType = document.getElementById("type").value;
         let table = document.getElementById("result");
         table.innerHTML = "";
-        
+        console.log(ducks + "test");
         for (let duck of ducks) {
           console.log("Duck: " + JSON.stringify(duck));
           if (!duckType || duck.type.toLowerCase() == duckType.toLowerCase()) {
