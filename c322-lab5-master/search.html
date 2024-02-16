@@ -45,19 +45,48 @@
     </table>
 
     <script>
-       let ducks = [
-        { id: 1, type: "Mallard" },
-        { id: 2, type: "Redhead" },
-        { id: 3, type: "Decoy" },
-      ];
+      
+      let ducks = [];
+
+      async function getAll() {
+        let host = "http://localhost:8080";
+        let request = {
+          method: "GET",
+        };
+
+        fetch("http://localhost:8080/ducks")
+        .then(response =>
+        response.json())
+        .then(ducks => {
+          console.log(ducks);
+
+          const jsonToString = JSON.stringify(ducks);
+          console.log('jsonToString', jsonToString);
+        })
+      }
+
+        /*let response = await fetch(host + "/ducks", request)
+        
+        if (response.status === 200) {
+          let result = await response.json().getElementById;
+          ducks = result;
+          } else {
+            throw new Error("Error");
+          }
+        }*/
+
 
       async function search() {    
+        if(ducks.length == 0){
+          ducks = await getAll();
+        }
 
         let duckType = document.getElementById("type").value;
         let table = document.getElementById("result");
         table.innerHTML = "";
         
         for (let duck of ducks) {
+          console.log("Duck: " + JSON.stringify(duck));
           if (!duckType || duck.type.toLowerCase() == duckType.toLowerCase()) {
             let row = document.createElement("tr");
             let cell1 = document.createElement("td");
